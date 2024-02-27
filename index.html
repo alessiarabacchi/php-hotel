@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
   <head>
+    <meta charset="UTF-8" />
     <title>PHP Hotel</title>
     <!-- Link Bootstrap -->
     <link
@@ -9,71 +10,21 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>
-    <div class="container">
-      <h1>Filtra Hotel</h1>
-      <form id="filterForm">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            name="parking"
-            id="parking"
-          />
-          <label class="form-check-label" for="parking"
-            >Solo hotel con parcheggio</label
-          >
+    <div class="container mt-4">
+      <h1>PHP Hotel</h1>
+      <form action="hotels.php" method="get">
+        <div class="form-group">
+          <label for="parking">Solo hotel con parcheggio</label>
+          <input type="checkbox" name="parking" id="parking" />
         </div>
         <div class="form-group">
           <label for="vote">Voto minimo</label>
-          <input type="number" class="form-control" name="vote" id="vote" />
+          <input type="number" name="vote" id="vote" min="1" max="5" />
         </div>
         <button type="submit" class="btn btn-primary">Filtra</button>
       </form>
-
-      <h2>Lista Hotel</h2>
-      <div id="hotelList"></div>
     </div>
-
-    <script>
-      $(document).ready(function () {
-        $("#filterForm").on("submit", function (e) {
-          e.preventDefault();
-          $.ajax({
-            url: "filterHotels.php",
-            type: "GET",
-            data: $(this).serialize(),
-            success: function (data) {
-              $("#hotelList").empty();
-              data.forEach(function (hotel) {
-                $("#hotelList").append(
-                  '<div class="card mb-3">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' +
-                    hotel.name +
-                    "</h5>" +
-                    '<p class="card-text">' +
-                    hotel.description +
-                    "</p>" +
-                    '<p class="card-text">Parcheggio: ' +
-                    (hotel.parking ? "Sì" : "No") +
-                    "</p>" +
-                    '<p class="card-text">Voto: ' +
-                    hotel.vote +
-                    "</p>" +
-                    '<p class="card-text">Distanza dal centro: ' +
-                    hotel.distance_to_center +
-                    " km</p>" +
-                    "</div>" +
-                    "</div>"
-                );
-              });
-            },
-          });
-        });
-      });
-    </script>
   </body>
 </html>
